@@ -61,7 +61,7 @@ Password: 12345678
 
 #### Advisor
 ```text
-Email: hana.samir.1174@sci.asu.edu.eg
+Email: hana.samir.@sci.asu.edu.eg
 Password: 12345678
 ```
 
