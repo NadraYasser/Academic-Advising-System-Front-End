@@ -1,0 +1,76 @@
+
+:root {
+  --bg: #06090f; --bg2: #0b1120; --card: #0e1829;
+  --blue: #3b82f6; --blue2: #60a5fa; --white: #e8f0fe;
+  --muted: #5b7a9d; --border2: rgba(255, 255, 255, 0.06);
+}
+
+.student-guide-wrapper {
+  background: var(--bg);
+  color: var(--white);
+  min-height: 100vh;
+  direction: rtl;
+  font-family: 'Outfit', sans-serif;
+}
+
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(6, 9, 15, 0.95); backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(59, 130, 246, 0.12);
+  padding: 14px 32px; display: flex; align-items: center; justify-content: space-between;
+}
+.topbar-back {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+}
+
+.topbar-back:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.35);
+}
+
+.topbar-back:active {
+  transform: scale(0.98);
+}
+
+.page-wrap { max-width: 860px; margin: 0 auto; padding: 52px 24px; }
+
+.hero { text-align: center; margin-bottom: 52px; }
+.hero-icon { font-size: 72px; display: block; margin-bottom: 16px; }
+
+.toc { background: var(--card); border: 1px solid var(--border2); border-radius: 16px; padding: 26px; margin-bottom: 48px; }
+.toc-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+.toc-link {
+  color: rgba(232, 240, 254, 0.7); font-size: 16px; text-decoration: none;
+  display: block; padding: 7px 10px; border-radius: 8px; cursor: pointer;
+  transition: all 0.2s; border: none; background: none; width: 100%; text-align: right;
+}
+
+.toc-link.active, .toc-link:hover {
+  background: rgba(59, 130, 246, 0.1); color: var(--blue2); font-weight: 600;
+}
+
+.section { display: none; animation: fadeIn 0.4s ease-out; }
+.section.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.article { background: var(--card); border: 1px solid var(--border2); border-radius: 12px; padding: 20px 22px; margin-bottom: 12px; }
+.article-label { color: var(--blue2); font-size: 10px; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; }
+.article-body { font-size: 14px; color: rgba(232, 240, 254, 0.78); }
+
+.footer { text-align: center; padding: 32px 0; border-top: 1px solid var(--border2); margin-top: 40px; color: var(--muted); font-size: 12px; }
+
+@media (max-width: 600px) { .toc-list { grid-template-columns: 1fr; } }
