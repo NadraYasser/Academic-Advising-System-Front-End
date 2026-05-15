@@ -1,7 +1,5 @@
 // ─────────────────────────────────────────────────────────────
-//  PAGE: Student Profile — standalone page
-//  Opened via Student Profile nav item after selecting a student
-//  from My Students (View button → App sets viewingStudent + page)
+//  PAGE: Student Profile 
 // ─────────────────────────────────────────────────────────────
 import React from 'react';
 import { useState, useEffect } from 'react';
