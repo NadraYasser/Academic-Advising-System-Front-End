@@ -117,7 +117,7 @@ export function Sidebar({ page, setPage }) {
       {NAV.map(sec => (
         
         <div key={sec.section} style={{ padding: '12px 0 3px' }}>
-          <div style={{ fontSize: 14, fontWeight: 600, letterSpacing: 2, textTransform: 'uppercase', color: 'var(--dim)', padding: '0 13px', marginBottom: 4 }}>
+          <div style={{ fontSize: 16, fontWeight: 600, letterSpacing: 2, textTransform: 'uppercase', color: 'var(--dim)', padding: '0 13px', marginBottom: 4 }}>
             {sec.section}
           </div>
           {sec.items.filter(item => !item.hidden || page === item.id)
@@ -130,7 +130,7 @@ export function Sidebar({ page, setPage }) {
             return (
               <div key={item.id} onClick={() => setPage(item.id)} style={{
                 display: 'flex', alignItems: 'center', gap: 9, padding: '8px 13px',
-                fontSize: 1.2rem, fontWeight: active ? 700 : 500,
+                  fontSize: '1.2rem', fontWeight: active ? 700 : 500,
                 color: active ? 'var(--blue2)' : 'var(--muted)',
                 cursor: 'pointer', transition: 'all .15s',
                 borderLeft: active ? '2px solid var(--blue2)' : '2px solid transparent',
