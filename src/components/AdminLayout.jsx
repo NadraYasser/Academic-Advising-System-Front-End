@@ -157,7 +157,7 @@ export function Sidebar({ page, setPage }) {
                   <span style={{
                     marginLeft: 'auto', minWidth: 19, height: 18, borderRadius: 9,
                     background: 'var(--muted)', color: '#fff',
-                    fontSize: 10, fontWeight: 700,
+                    fontSize: 15, fontWeight: 700,
                     display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 4px',
                   }}>
                     {badgeCount}
