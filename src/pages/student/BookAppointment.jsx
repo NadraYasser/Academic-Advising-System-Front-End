@@ -1,8 +1,5 @@
 // ─────────────────────────────────────────────────────────────
-//  BookAppointment — uses real API
-//  1. Fetches available dates from /student/bookings/days/{month}/{year}
-//  2. On date click, fetches slots from /student/bookings/slots/{date}
-//  3. Books via /student/bookings/book
+//  BookAppointment 
 // ─────────────────────────────────────────────────────────────
 import React from 'react';
 import { useState, useEffect } from 'react';
