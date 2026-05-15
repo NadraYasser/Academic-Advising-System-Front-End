@@ -1,6 +1,5 @@
 // ─────────────────────────────────────────────────────────────
-//  PAGE: My Students — list only
-//  View → calls onViewStudent(student) → App navigates to 'student-profile'
+//  PAGE: My Students 
 // ─────────────────────────────────────────────────────────────
 import React from 'react';
 import { useState } from 'react';
