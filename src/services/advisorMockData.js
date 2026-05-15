@@ -1,7 +1,5 @@
 // ─────────────────────────────────────────────────────────────
 //  MOCK DATA — Advisor Portal
-//  Mirrors server API response shapes.
-//  In production every export comes from server endpoints.
 // ─────────────────────────────────────────────────────────────
 
 export const ADVISOR_CREDENTIALS = {
