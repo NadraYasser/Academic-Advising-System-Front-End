@@ -1,10 +1,5 @@
 // ─────────────────────────────────────────────────────────────
 //  PAGE: Dashboard 
-//  - GPA card color by risk (rose/amber/blue)
-//  - Failed Courses replaces CH This Semester
-//  - Current Semester Courses hidden until regConfirmed
-//  - NO "Registration Open" CTA card
-//  - Manage Registration re-opens if period open
 // ─────────────────────────────────────────────────────────────
 import React from 'react';
 import { useApp } from '../../contexts/StudentContext';
