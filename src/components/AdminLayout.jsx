@@ -143,7 +143,7 @@ export function Sidebar({ page, setPage }) {
                  fontWeight: active ? 700 : 500,
                   color: active ? 'var(--blue2)' : '#8fadc8',
                   cursor: 'pointer', transition: 'all .15s',
-                  fontSize: '1.2rem', gap: 8,
+                  fontSize: '1.5rem', gap: 8,
                   borderLeft: active ? '2px solid var(--blue2)' : '2px solid transparent',
                   background: active ? 'rgba(59,130,246,.07)' : 'transparent',
                   userSelect: 'none',
