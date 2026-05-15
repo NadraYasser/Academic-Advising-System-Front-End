@@ -128,7 +128,7 @@ export function Sidebar({ page, setPage }) {
       {/* Nav sections */}
       {NAV.map(sec => (
         <div key={sec.section} style={{ padding: '12px 0 3px' }}>
-          <div style={{  fontSize: 14, fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase', color: 'var(--dim)', padding: '0 13px', marginBottom: 4 }}>
+          <div style={{  fontSize: 16, fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase', color: 'var(--dim)', padding: '0 13px', marginBottom: 4 }}>
             {sec.section} 
           </div>
           {sec.items.map(item => {
@@ -143,7 +143,7 @@ export function Sidebar({ page, setPage }) {
                  fontWeight: active ? 700 : 500,
                   color: active ? 'var(--blue2)' : '#8fadc8',
                   cursor: 'pointer', transition: 'all .15s',
-                  fontSize: '0.95rem', gap: 8,
+                  fontSize: '1.2rem', gap: 8,
                   borderLeft: active ? '2px solid var(--blue2)' : '2px solid transparent',
                   background: active ? 'rgba(59,130,246,.07)' : 'transparent',
                   userSelect: 'none',
