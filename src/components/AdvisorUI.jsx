@@ -1,6 +1,5 @@
 // ─────────────────────────────────────────────────────────────
 //  SHARED UI COMPONENTS — Advisor Portal
-//  Same design system as Student Portal
 // ─────────────────────────────────────────────────────────────
 import React from 'react';
 import { useApp } from '../contexts/AdvisorContext';
