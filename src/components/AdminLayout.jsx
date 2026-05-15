@@ -1,6 +1,5 @@
 // ─────────────────────────────────────────────────────────────
 //  LAYOUT — Admin Portal
-//  Header + Sidebar — matches Advisor Portal design exactly
 // ─────────────────────────────────────────────────────────────
 import React from 'react';
 import { useApp } from '../contexts/AdminContext';
