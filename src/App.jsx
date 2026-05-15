@@ -1,7 +1,5 @@
 // ═══════════════════════════════════════════════════════════════
 //  ASU Academic Advising — UNIFIED APP
-//  مشروع واحد · كل الصفحات على نفس localhost:3000
-//  الـ Login يحدد الـ role وتفتح الصفحات المناسبة
 // ═══════════════════════════════════════════════════════════════
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
@@ -276,7 +274,7 @@ export default function App() {
           --bg:#06090f;--bg2:#0b1120;--card:#0e1829;--card2:#111e30;
           --blue:#3b82f6;--blue2:#60a5fa;--teal:#2dd4bf;--amber:#f59e0b;
           --rose:#fb7185;--violet:#a78bfa;--green:#34d399;
-          --white:#e8f0fe;--muted:#5b7a9d;--dim:#334d6a;
+          --white:#e8f0fe;--muted:#5b7a9d;--muted:#334d6a;
           --border:rgba(59,130,246,0.12);--border2:rgba(255,255,255,0.06);
           --serif:'Libre Baskerville',serif;--sans:'Outfit',sans-serif;--mono:'DM Mono',monospace;
         }
@@ -292,7 +290,7 @@ export default function App() {
         button:disabled{cursor:not-allowed!important}
         table{width:100%;border-collapse:collapse;font-size:12px}
         thead{background:rgba(255,255,255,.02)}
-        th{padding:8px 12px;text-align:left;font-size:9.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--border2);white-space:nowrap}
+        th{padding:8px 12px;text-align:left;font-size:13.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--border2);white-space:nowrap}
         td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.03);vertical-align:middle;color:var(--white)}
         tr:last-child td{border-bottom:none}
         tr:hover td{background:rgba(255,255,255,.015)}
