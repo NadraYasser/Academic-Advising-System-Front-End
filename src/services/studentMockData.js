@@ -1,7 +1,5 @@
 
 //  MOCK DATA — mirrors server API response shapes
-//  In production every export comes from server endpoints.
-//  Stats (cumGPA, chPassed, failedCodes, riskLevel) are
 
 
 // Passwords stored for demo login only 
