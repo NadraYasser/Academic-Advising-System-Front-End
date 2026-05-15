@@ -127,7 +127,7 @@ export function Sidebar({ page, setPage }) {
             return (
               <div key={item.id} onClick={() => setPage(item.id)} style={{
                 display: 'flex', alignItems: 'center', gap: 9, padding: '8px 13px',
-                fontSize: .95 rem, fontWeight: active ? 700 : 500,
+                fontSize: 1.2 rem, fontWeight: active ? 700 : 500,
                 cursor: 'pointer', transition: 'all .15s',
                 borderLeft: active ? '2px solid var(--blue2)' : '2px solid transparent',
                 background: active ? 'rgba(59,130,246,.07)' : 'transparent',
