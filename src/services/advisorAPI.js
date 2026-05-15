@@ -1,8 +1,7 @@
 // ─────────────────────────────────────────────────────────────
 //  API SERVICE — Advisor Portal
 //  Base: http://127.0.0.1:8000/api/advisor
-//  Auth: Bearer token من localStorage
-// ─────────────────────────────────────────────────────────────
+─────────────────────────────────────────────────────────────
 import { HISTORY, GPA_HIST, SLOTS, APPTS, NOTES } from './advisorMockData';
 
 const BASE = 'http://127.0.0.1:8000/api';
