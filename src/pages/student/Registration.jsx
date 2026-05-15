@@ -1,6 +1,5 @@
 // ─────────────────────────────────────────────────────────────
 //  Registration — UI مطابق للـ screenshot
-//  Mock: COURSES من mockData
 //  API:  GET  /api/student/registration
 //        POST /api/student/registration/enroll
 //        POST /api/student/registration/unenroll/{id}
