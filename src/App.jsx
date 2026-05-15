@@ -278,7 +278,7 @@ export default function App() {
           --border:rgba(59,130,246,0.12);--border2:rgba(255,255,255,0.06);
           --serif:'Libre Baskerville',serif;--sans:'Outfit',sans-serif;--mono:'DM Mono',monospace;
         }
-        html,body,#root{height:100%;font-family:var(--sans);background:var(--bg);color:var(--white);line-height:1.5}
+        html,body,#root{height:100%;font-family:var(--sans);  fontSize: '1.5rem';background:var(--bg);color:var(--white);line-height:1.5}
         *::-webkit-scrollbar{display:none!important;width:0!important}
         *{scrollbar-width:none!important}
         @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
