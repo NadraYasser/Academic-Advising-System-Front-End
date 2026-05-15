@@ -99,7 +99,7 @@ export default function StudentProfile({ student, onBack }) {
     try {
       await addStudentCourse(student.id, cid);
       toast(`Added ${course.course_code || course.code}`, 'success');
-      // Re-fetch everything
+     
       const [profile, avail] = await Promise.all([
         fetchStudentProfile(student.id),
         fetchStudentAvailableCourses(student.id)
