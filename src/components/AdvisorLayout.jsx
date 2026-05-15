@@ -1,7 +1,5 @@
 // ─────────────────────────────────────────────────────────────
 //  LAYOUT — Advisor Portal
-//  Logout مربوط بـ doLogout من AppContext
-//  ManageSlots محذوفة من الـ NAV
 // ─────────────────────────────────────────────────────────────
 import React from 'react';
 import { useApp } from '../contexts/AdvisorContext';
