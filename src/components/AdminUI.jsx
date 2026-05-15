@@ -1,6 +1,5 @@
 // ─────────────────────────────────────────────────────────────
 //  SHARED UI COMPONENTS — Admin Portal
-//  Matches Advisor Portal design system exactly
 // ─────────────────────────────────────────────────────────────
 import React from 'react';
 import { useApp } from '../contexts/AdminContext';
