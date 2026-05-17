@@ -1,6 +1,4 @@
-// ─────────────────────────────────────────────────────────────
-//  Students Page — Connected to API
-// ─────────────────────────────────────────────────────────────
+
 import React from 'react';
 import { useState } from 'react';
 import { useApp } from '../../contexts/AdminContext';
