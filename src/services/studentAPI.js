@@ -1,7 +1,6 @@
 // ─────────────────────────────────────────────────────────────
 //  API SERVICE — Student Portal
-//  Base: http://127.0.0.1:8000/api
-// ─────────────────────────────────────────────────────────────
+
 import { HISTORY, GPA_HIST, SLOTS, APPTS } from './studentMockData';
 
 const BASE        = 'http://127.0.0.1:8000/api';
