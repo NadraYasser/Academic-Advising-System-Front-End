@@ -1,7 +1,5 @@
 // ─────────────────────────────────────────────────────────────
-//  PAGE: Manage Slots — Advisor Portal
-//  Table: DATE / TIME / MAX STUDENTS / BOOKED / STATUS / ACTIONS
-// ─────────────────────────────────────────────────────────────
+
 import React from 'react';
 import { useState } from 'react';
 import { useApp } from '../../contexts/AdvisorContext';
@@ -54,7 +52,7 @@ export default function ManageSlots() {
 
   function getSlotStatus(sl) {
     if (sl.status === 'cancelled') return 'cancelled';
-    if (isPastDate(sl.date) && sl.booked < sl.max) return 'pending'; // فات الموعد ولم يمتلئ
+    if (isPastDate(sl.date) && sl.booked < sl.max) return 'pending'; 
     if (sl.booked >= sl.max)       return 'full';
     return 'available';
   }
