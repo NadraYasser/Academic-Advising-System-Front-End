@@ -85,7 +85,6 @@ export default function BookAppointment({ setPage }) {
     const sl = dateSlots.find(s => s.id === selectedSlot);
     if (!sl) return;
 
-    // Check for existing booking on same date
     const conflict = appts.some(a => a.status === 'booked' && a.date === sl.date);
     if (conflict) {
       toast('❌ You already have an appointment on this date', 'err');
