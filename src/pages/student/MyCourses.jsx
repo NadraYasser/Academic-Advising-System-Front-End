@@ -161,8 +161,8 @@ export default function MyCourses() {
                       return (
                         <tr key={`${c.code}-${i}`}>
                           <td style={{ padding: '10px 12px' }}><CodeChip code={c.code} /></td>
-                          <td style={{ padding: '10px 12px', color: 'var(--white)', fontSize: 13 }}>{co?.name || c.code}</td>
-                          <td style={{ padding: '10px 12px', color: 'var(--white)' }}>{co?.ch || 3}</td>
+                          <td style={{ padding: '10px 12px', color: 'var(--white)', fontSize: 13 }}>{c.name || co?.name || c.code}</td>
+                          <td style={{ padding: '10px 12px', color: 'var(--white)' }}>{c.ch ?? co?.ch ?? 3}</td>
                           <td style={{ padding: '10px 12px', color: '#8fadc8' }}>{c.sem}</td>
                           <td style={{ padding: '10px 12px', color: gradeColors[gc] || 'var(--white)', fontWeight: 700 }}>{c.grade}</td>
                           <td style={{ padding: '10px 12px', color: statusColors[c.status] || 'var(--white)', fontSize: 11, fontWeight: 600 }}>

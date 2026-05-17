@@ -91,46 +91,123 @@ export default function StudentProfile({ student, onBack }) {
   // ── Handlers ────────────────────────────────────────────────
   async function handleAddCourse(course) {
     const cid = course.id || course.course_id;
-    console.log("StudentProfile: Adding course:", { studentId: student.id, courseId: cid });
     if (!cid) {
       toast('Invalid course ID', 'err');
       return;
     }
+
+    const prevProfile = profileData;
+    const prevAvail = availCourses;
+
+    const courseCode = course.course_code || course.code;
+    const courseName = course.course_name || course.name;
+    const creditHours = course.credit_hours || course.ch || 3;
+
+    if (availCourses?.courses) {
+      setAvailCourses({
+        ...availCourses,
+        courses: availCourses.courses.filter(c => (c.id !== cid && c.course_id !== cid))
+      });
+    }
+
+    if (profileData) {
+      const newEnrolled = [
+        ...(profileData.current_courses?.courses || []),
+        {
+          course_id: cid,
+          course_code: courseCode,
+          course_name: courseName,
+          credit_hours: creditHours,
+          prerequisites: course.prerequisites || [],
+          attempt_number: 1
+        }
+      ];
+      const newTotalCH = (profileData.current_courses?.total_enrolled_ch ?? 0) + creditHours;
+
+      setProfileData({
+        ...profileData,
+        current_courses: {
+          ...profileData.current_courses,
+          total_enrolled_ch: newTotalCH,
+          courses: newEnrolled
+        },
+        summary_cards: {
+          ...profileData.summary_cards,
+          current_hours: newTotalCH
+        }
+      });
+    }
+
     try {
       await addStudentCourse(student.id, cid);
-      toast(`Added ${course.course_code || course.code}`, 'success');
-     
-      const [profile, avail] = await Promise.all([
-        fetchStudentProfile(student.id),
-        fetchStudentAvailableCourses(student.id)
-      ]);
-      setProfileData(profile);
-      setAvailCourses(avail);
+      toast(`Added ${courseCode}`, 'success');
     } catch (e) {
       console.error("StudentProfile: Add course error:", e);
       toast(e.message || 'Failed to add course', 'err');
+      setProfileData(prevProfile);
+      setAvailCourses(prevAvail);
     }
   }
 
   async function handleRemoveCourse(courseId) {
-    console.log("StudentProfile: Removing course:", { studentId: student.id, courseId });
     if (!courseId) {
       toast('Invalid course ID', 'err');
       return;
     }
+
+    const prevProfile = profileData;
+    const prevAvail = availCourses;
+
+    const enrolledCourses = profileData?.current_courses?.courses || [];
+    const courseToRemove = enrolledCourses.find(c => (c.course_id === courseId || c.id === courseId));
+    if (!courseToRemove) return;
+
+    const creditHours = courseToRemove.credit_hours || 3;
+
+    if (profileData) {
+      const newEnrolled = enrolledCourses.filter(c => (c.course_id !== courseId && c.id !== courseId));
+      const newTotalCH = Math.max(0, (profileData.current_courses?.total_enrolled_ch ?? 0) - creditHours);
+
+      setProfileData({
+        ...profileData,
+        current_courses: {
+          ...profileData.current_courses,
+          total_enrolled_ch: newTotalCH,
+          courses: newEnrolled
+        },
+        summary_cards: {
+          ...profileData.summary_cards,
+          current_hours: newTotalCH
+        }
+      });
+    }
+
+    if (availCourses?.courses) {
+      setAvailCourses({
+        ...availCourses,
+        courses: [
+          ...availCourses.courses,
+          {
+            id: courseId,
+            course_id: courseId,
+            course_code: courseToRemove.course_code,
+            course_name: courseToRemove.course_name,
+            credit_hours: creditHours,
+            prerequisites: courseToRemove.prerequisites || [],
+            can_add: true
+          }
+        ]
+      });
+    }
+
     try {
       await removeStudentCourse(student.id, courseId);
       toast('Course removed', 'success');
-      // Re-fetch everything
-      const [profile, avail] = await Promise.all([
-        fetchStudentProfile(student.id),
-        fetchStudentAvailableCourses(student.id)
-      ]);
-      setProfileData(profile);
-      setAvailCourses(avail);
     } catch (e) {
       console.error("StudentProfile: Remove course error:", e);
       toast(e.message || 'Failed to remove course', 'err');
+      setProfileData(prevProfile);
+      setAvailCourses(prevAvail);
     }
   }
 

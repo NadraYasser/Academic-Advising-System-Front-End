@@ -6,18 +6,22 @@ import { useApp } from '../contexts/AdminContext';
 import { useNavigate } from "react-router-dom";
 
 const LOGIN_URL = 'http://localhost:3000';
-const BASE_URL  = 'http://127.0.0.1:8000/api';
+const BASE_URL = 'http://127.0.0.1:8000/api';
 
 const NAV = [
-  { section: 'OVERVIEW', items: [
-    { id: 'dashboard', icon: '🏠', label: 'Dashboard'  },
-  ]},
-  { section: 'MANAGEMENT', items: [
-    { id: 'students',  icon: '🎓', label: 'Students',    },
-    { id: 'advisors',  icon: '👨‍🏫', label: 'Advisors',  },
-    { id: 'courses',   icon: '📚', label: 'Courses',     },
-    { id: 'semesters', icon: '📅', label: 'Semesters'     },
-  ]},
+  {
+    section: 'OVERVIEW', items: [
+      { id: 'dashboard', icon: '🏠', label: 'Dashboard' },
+    ]
+  },
+  {
+    section: 'MANAGEMENT', items: [
+      { id: 'students', icon: '🎓', label: 'Students', },
+      { id: 'advisors', icon: '👨‍🏫', label: 'Advisors', },
+      { id: 'courses', icon: '📚', label: 'Courses', },
+      { id: 'semesters', icon: '📅', label: 'Semesters' },
+    ]
+  },
 ];
 
 export function Header({ onLogout }) {
@@ -46,9 +50,9 @@ export function Header({ onLogout }) {
     }
   }
 
-      
-    
-  
+
+
+
   return (
     <header style={{
       height: 54, flexShrink: 0,
@@ -77,12 +81,14 @@ export function Header({ onLogout }) {
 
       {/* Right side */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-        
+
         <button
           onClick={handleLogout}
-          style={{background:"linear-gradient(135deg,var(--blue),#1d65cc)",color:"#fff",
-          border:"none",borderRadius:8,padding:"9px 22px",fontFamily:"var(--sans)",fontSize:18,
-          fontWeight:500,cursor:"pointer",boxShadow:"0 4px 14px rgba(59,130,246,0.3)"}}>
+          style={{
+            background: "linear-gradient(135deg,var(--blue),#1d65cc)", color: "#fff",
+            border: "none", borderRadius: 8, padding: "9px 22px", fontFamily: "var(--sans)", fontSize: 18,
+            fontWeight: 500, cursor: "pointer", boxShadow: "0 4px 14px rgba(59,130,246,0.3)"
+          }}>
           ← Logout
         </button>
       </div>
@@ -96,7 +102,7 @@ export function Sidebar({ page, setPage }) {
   function getBadge(key) {
     if (key === 'students') return students?.length || 0;
     if (key === 'advisors') return advisors?.length || 0;
-    if (key === 'courses')  return courses?.length  || 0;
+    if (key === 'courses') return courses?.length || 0;
     return 0;
   }
 
@@ -114,10 +120,10 @@ export function Sidebar({ page, setPage }) {
           fontFamily: "'DM Mono',monospace", fontSize: 12, fontWeight: 800, color: '#fff',
           background: 'linear-gradient(135deg,var(--blue),var(--teal))',
         }}>
-          
-          {admin?.name 
-  ? admin.name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase() 
-  : 'AD'}
+
+          {admin?.name
+            ? admin.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()
+            : 'AD'}
         </div>
         <div>
           <div style={{ fontSize: 16, fontWeight: 550, color: 'var(--white)' }}>{admin?.name || 'Admin'}</div>
@@ -128,11 +134,11 @@ export function Sidebar({ page, setPage }) {
       {/* Nav sections */}
       {NAV.map(sec => (
         <div key={sec.section} style={{ padding: '12px 0 3px' }}>
-          <div style={{  fontSize: 16, fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase', color: 'var(--dim)', padding: '0 13px', marginBottom: 4 }}>
-            {sec.section} 
+          <div style={{ fontSize: 16, fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase', color: 'var(--dim)', padding: '0 13px', marginBottom: 4 }}>
+            {sec.section}
           </div>
           {sec.items.map(item => {
-            const active     = page === item.id;
+            const active = page === item.id;
             const badgeCount = item.badge ? getBadge(item.badge) : 0;
             return (
               <div
@@ -140,16 +146,16 @@ export function Sidebar({ page, setPage }) {
                 onClick={() => setPage(item.id)}
                 style={{
                   display: 'flex', alignItems: 'center', gap: 9, padding: '8px 13px',
-                 fontWeight: active ? 700 : 500,
+                  fontWeight: active ? 700 : 500,
                   color: active ? 'var(--blue2)' : '#8fadc8',
                   cursor: 'pointer', transition: 'all .15s',
-                  fontSize: '1.5rem', gap: 8,
+                  fontSize: '1.22rem', gap: 8,
                   borderLeft: active ? '2px solid var(--blue2)' : '2px solid transparent',
                   background: active ? 'rgba(59,130,246,.07)' : 'transparent',
                   userSelect: 'none',
                 }}
-                onMouseEnter={e => { if (!active) { e.currentTarget.style.color = 'var(--muted)'; e.currentTarget.style.background = 'rgba(255,255,255,.03)'; }}}
-                onMouseLeave={e => { if (!active) { e.currentTarget.style.color = 'var(--dim)'; e.currentTarget.style.background = 'transparent'; }}}
+                onMouseEnter={e => { if (!active) { e.currentTarget.style.color = 'var(--muted)'; e.currentTarget.style.background = 'rgba(255,255,255,.03)'; } }}
+                onMouseLeave={e => { if (!active) { e.currentTarget.style.color = 'var(--dim)'; e.currentTarget.style.background = 'transparent'; } }}
               >
                 <span style={{ fontSize: 15, width: 18, textAlign: 'center', flexShrink: 0 }}>{item.icon}</span>
                 {item.label}

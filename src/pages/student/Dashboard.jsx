@@ -5,6 +5,7 @@ import React from 'react';
 import { useApp } from '../../contexts/StudentContext';
 import { COURSES } from '../../services/studentMockData';
 import { isRegOpen } from '../../services/studentLogic';
+import { unconfirmRegistration } from '../../services/studentAPI';
 import {
   StatCard, Card, CardHead, CardBody, CardTitle,
   Btn, GPABar, RiskBadge, CodeChip, AttBadge, Empty,
@@ -28,10 +29,15 @@ export default function Dashboard({ setPage }) {
   const failedCount = Array.isArray(failed) ? failed.length : (failed || 0);
   const failedTheme = failedCount === 0 ? 'green' : failedCount <= 1 ? 'amber' : 'rose';
 
-  function handleManage() {
+  async function handleManage() {
     if (regConfirmed && isRegOpen()) {
-      dispatch({ type: 'UNCONFIRM_REG' });
-      toast('Registration re-opened — modify your selection', 'inf');
+      try {
+        await unconfirmRegistration();
+        dispatch({ type: 'UNCONFIRM_REG' });
+        toast('Registration re-opened — modify your selection', 'inf');
+      } catch (e) {
+        toast(e.message || 'Failed to re-open registration', 'err');
+      }
     } else if (!isRegOpen()) {
       toast('⏰ Registration period is closed', 'err');
     }

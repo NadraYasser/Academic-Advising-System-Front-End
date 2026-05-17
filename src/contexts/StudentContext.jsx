@@ -81,6 +81,9 @@ function reducer(state, action) {
     case "CONFIRM_REG":
       return { ...state, regConfirmed: true };
 
+    case "UNCONFIRM_REG":
+      return { ...state, regConfirmed: false };
+
     default:
       return state;
   }
@@ -142,7 +145,7 @@ export function AppProvider({ children }) {
   const gpa = state.student?.cumGPA ?? 0;
   const chPassed = state.student?.chPassed ?? 0;
   const failed = state.student?.failedCodes ?? [];
-  const risk = state.student?.riskLevel ?? "low";
+  const risk = gpa < 2.0 ? "high" : (gpa >= 2.0 && gpa < 2.76 ? "medium" : "low");
 
   const maxCH = maxCHforGPA(gpa);
   const current = getCurrentCourses(state.history);
@@ -174,6 +177,28 @@ export function AppProvider({ children }) {
     }, 500);
   }, [toast]);
 
+  // ── Refresh Appointments
+  const refreshAppts = useCallback(async () => {
+    try {
+      const apptsRes = await apiGet("/student/appointments");
+      const rawAppts = apptsRes?.data?.appointments ?? (Array.isArray(apptsRes) ? apptsRes : (apptsRes?.data ?? []));
+      dispatch({
+        type: "SET_APPTS",
+        payload: rawAppts.map(a => ({
+          ...a,
+          id: a.appointment_id ?? a.id,
+          date: a.slot?.date ?? a.date,
+          time: a.slot ? `${a.slot.start_time} - ${a.slot.end_time}` : (a.time ?? ''),
+          status: (a.status ?? '').toLowerCase(),
+          notes: a.notes ?? '',
+          type: 'Advising Session',
+        })),
+      });
+    } catch (err) {
+      console.warn("Failed to refresh appts:", err);
+    }
+  }, []);
+
   // ── Boot (MAIN API LOADER)
   const boot = useCallback(async () => {
     dispatch({ type: "SET_LOADING", payload: true });
@@ -204,7 +229,7 @@ export function AppProvider({ children }) {
             cumGPA: dashboard.stats?.cumulative_gpa ?? 0,
             chPassed: dashboard.stats?.ch_passed ?? 0,
             failedCodes: dashboard.stats?.failed_courses ?? [],
-            riskLevel: dashboard.risk_level ?? 'low',
+            riskLevel: (dashboard.risk_level ?? 'low').toLowerCase().includes('high') ? 'high' : ((dashboard.risk_level ?? 'low').toLowerCase().includes('medium') ? 'medium' : 'low'),
             semester: dashboard.semester_display ?? '',
           },
         });
@@ -240,28 +265,22 @@ export function AppProvider({ children }) {
             prereqs: c.prerequisites ?? c.prereqs ?? [],
           })),
         });
+
+        const hasConfirmed = coursesArr.some(c => {
+          const s = (c.status ?? '').toLowerCase();
+          return s === 'confirmed' || s === 'registered';
+        });
+        if (hasConfirmed) {
+          dispatch({ type: "CONFIRM_REG" });
+        } else {
+          dispatch({ type: "UNCONFIRM_REG" });
+        }
       } catch (e) {
         console.warn("Could not load courses:", e.message);
       }
 
       // ── Appointments
-      const apptsRes = await apiGet("/student/appointments");
-     
-      const rawAppts = apptsRes?.data?.appointments
-        ?? (Array.isArray(apptsRes) ? apptsRes : (apptsRes?.data ?? []));
-
-      dispatch({
-        type: "SET_APPTS",
-        payload: rawAppts.map(a => ({
-          ...a,
-          id: a.appointment_id ?? a.id,
-          date: a.slot?.date ?? a.date,
-          time: a.slot ? `${a.slot.start_time} - ${a.slot.end_time}` : (a.time ?? ''),
-          status: (a.status ?? '').toLowerCase(),
-          notes: a.notes ?? '',
-          type: 'Advising Session',
-        })),
-      });
+      await refreshAppts();
 
       // ── Slots: getAvailableDays returns list of dates, then we need to fetch slots for a specific date
       // The days endpoint returns array of available dates
@@ -301,6 +320,7 @@ export function AppProvider({ children }) {
         doLogout,
         boot,
         refreshSlots,
+        refreshAppts,
       }}
     >
       {children}

@@ -274,13 +274,15 @@ export default function App() {
           --bg:#06090f;--bg2:#0b1120;--card:#0e1829;--card2:#111e30;
           --blue:#3b82f6;--blue2:#60a5fa;--teal:#2dd4bf;--amber:#f59e0b;
           --rose:#fb7185;--violet:#a78bfa;--green:#34d399;
-          --white:#e8f0fe;--muted:#5b7a9d;--muted:#334d6a;
+          --white:#e8f0fe;--muted:#5b7a9d;--muted:#ffffff;
           --border:rgba(59,130,246,0.12);--border2:rgba(255,255,255,0.06);
           --serif:'Libre Baskerville',serif;--sans:'Outfit',sans-serif;--mono:'DM Mono',monospace;
         }
         html,body,#root{height:100%;font-family:var(--sans);  fontSize: '1.5rem';background:var(--bg);color:var(--white);line-height:1.5}
         *::-webkit-scrollbar{display:none!important;width:0!important}
         *{scrollbar-width:none!important}
+th,p,td,sub,select,option,input,title,h1,h2,h3,h4,h5,h6{
+  color: var(--white) !important;}
         @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
         @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
         @keyframes spin{to{transform:rotate(360deg)}}

@@ -54,7 +54,7 @@ export function getPassedCodes(history) {
 }
 
 export function getCurrentCourses(history) {
-  return history.filter(c => c.status === 'enrolled');
+  return history.filter(c => c.status === 'enrolled' || c.status === 'confirmed' || c.status === 'registered');
 }
 
 export function getRisk(gpa) {

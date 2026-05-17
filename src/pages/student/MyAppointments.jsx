@@ -9,7 +9,7 @@ function getDay(d) { return new Date(d + 'T12:00:00').getDate(); }
 function getMon(d) { return new Date(d + 'T12:00:00').toLocaleDateString('en-US', { month: 'short' }).toUpperCase(); }
 
 export default function MyAppointments({ setPage }) {
-  const { appts, advisor, dispatch, toast } = useApp();
+  const { appts, advisor, dispatch, toast, refreshAppts } = useApp();
   const [filter, setFilter] = useState('');
 
   const filtered = filter ? appts.filter(a => a.status === filter) : appts;
@@ -20,7 +20,7 @@ export default function MyAppointments({ setPage }) {
   async function handleCancel(id) {
     try {
       await cancelAppointment(id);
-      dispatch({ type: 'CANCEL_APPT', id });
+      if (refreshAppts) await refreshAppts();
       toast('Appointment cancelled', 'inf');
     } catch {
       toast('Failed to cancel appointment', 'err');
@@ -89,8 +89,8 @@ export default function MyAppointments({ setPage }) {
                     <div style={{ fontSize: 11, color: 'var(--white)', textTransform: 'uppercase', fontWeight: 600, marginTop: 2 }}>{getMon(a.date)}</div>
                   </div>
                   <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 15, fontWeight: 600, color: 'var(--white)' }}>{advisor?.name} — {a.type}</div>
-                    <div style={{ fontSize: 13, color: 'var(--white)', marginTop: 2 }}>⏰ {a.time}{a.notes ? ' · ' + a.notes : ''}</div>
+                    <div style={{ fontSize: 15, fontWeight: 600, color: 'var(--white)' }}>{advisor?.name} — {a.notes || 'Advising Session'}</div>
+                    <div style={{ fontSize: 13, color: 'var(--white)', marginTop: 2 }}>⏰ {a.time}</div>
                   </div>
                   <div style={{ fontSize: 11, fontWeight: 600, ...statusStyle[a.status?.toLowerCase()] }}>
                     {a.status?.charAt(0).toUpperCase() + a.status?.slice(1).toLowerCase()}

@@ -13,7 +13,7 @@ function isPast(dateStr) {
 }
 
 export default function BookAppointment({ setPage }) {
-  const { student, advisor, appts, toast } = useApp();
+  const { student, advisor, appts, toast, refreshAppts } = useApp();
 
   const now = new Date();
   const [calYear,  setCalYear]  = useState(now.getFullYear());
@@ -95,6 +95,7 @@ export default function BookAppointment({ setPage }) {
     setBooking(true);
     try {
       await bookSlot({ studentId: student?.id, advisorId: sl.advisorId, slotId: selectedSlot, notes });
+      if (refreshAppts) await refreshAppts();
       toast('✅ Appointment booked successfully!', 'ok');
       setTimeout(() => setPage('appts'), 800);
     } catch (e) {
@@ -176,7 +177,8 @@ export default function BookAppointment({ setPage }) {
               {slotsLoading ? <Loader /> : dateSlots.length === 0 ? (
                 <div style={{ color: 'var(--muted)', fontSize: 13, padding: 12 }}>No slots available for this date.</div>
               ) : dateSlots.map(sl => {
-                const full  = sl.status === 'full' || sl.booked >= sl.max;
+                const alreadyBooked = appts.some(a => a.status?.toLowerCase() === 'booked' && (a.slot?.slot_id === sl.id || a.slot_id === sl.id || a.slot?.id === sl.id || a.slotId === sl.id));
+                const full  = sl.status === 'full' || sl.booked >= sl.max || alreadyBooked;
                 const sel   = selectedSlot === sl.id;
                 const avail = Math.max(0, sl.max - sl.booked);
                 return (
@@ -188,7 +190,7 @@ export default function BookAppointment({ setPage }) {
                       <div style={{ fontSize: 10, color: 'var(--muted)' }}>{avail} spot{avail!==1?'s':''} left</div>
                     </div>
                     <div style={{ marginLeft: 'auto', fontSize: 11, fontWeight: 600 }}>
-                      {full ? <span style={{ color:'var(--dim)' }}>Full</span> : <span style={{ color:'var(--green)' }}>Available</span>}
+                      {alreadyBooked ? <span style={{ color:'var(--dim)' }}>Booked</span> : full ? <span style={{ color:'var(--dim)' }}>Full</span> : <span style={{ color:'var(--green)' }}>Available</span>}
                     </div>
                   </div>
                 );

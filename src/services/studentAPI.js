@@ -141,6 +141,11 @@ export async function confirmRegistration({ studentId, courseCodes }) {
   return post(`${STUDENT_URL}/registration/confirm`, {});
 }
 
+export async function unconfirmRegistration() {
+  if (USE_MOCK) return mock({ success: true });
+  return post(`${STUDENT_URL}/registration/unconfirm`, {});
+}
+
 // ── Booking ───────────────────────────────────────────────────
 export async function fetchAvailableDays(month, year) {
   if (USE_MOCK) return mock([]);

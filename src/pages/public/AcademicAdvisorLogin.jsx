@@ -174,7 +174,7 @@ function LoginView({ onForgot, onLoginSuccess }) {
       let res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
-        body: JSON.stringify({ email, password, role }),
+        body: JSON.stringify({ email: email.trim(), password: password.trim(), role }),
       });
 
       // Fallback to generic endpoint if role-specific returns 404
@@ -182,7 +182,7 @@ function LoginView({ onForgot, onLoginSuccess }) {
         res = await fetch(GENERIC_LOGIN_ENDPOINT, {
           method: "POST",
           headers: { "Content-Type": "application/json", "Accept": "application/json" },
-          body: JSON.stringify({ email, password, role }),
+          body: JSON.stringify({ email: email.trim(), password: password.trim(), role }),
         });
       }
 

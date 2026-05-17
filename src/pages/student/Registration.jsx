@@ -69,6 +69,7 @@ export default function Registration({ setPage }) {
   const [apiCourses, setApiCourses] = useState(null);
   const [enrollments, setEnrollments] = useState({});
   const [regLoading, setRegLoading] = useState(false);
+  const [apiMaxCH, setApiMaxCH] = useState(18);
 
   useEffect(() => {
     if (USE_MOCK) return;
@@ -76,12 +77,21 @@ export default function Registration({ setPage }) {
     fetchRegistration()
       .then(data => {
         const available = Array.isArray(data) ? data : (data?.available_courses ?? []);
-        // API response uses 'current_enrollments' not 'enrolled'
         const enrolled = data?.current_enrollments ?? data?.enrolled ?? [];
-        // map API → UI shape — preserve course_id for enroll calls
+        
+        if (data?.stats?.max_allowed_ch) {
+          setApiMaxCH(data.stats.max_allowed_ch);
+        }
+
+        if (data?.stats?.registration_confirmed) {
+          dispatch({ type: 'CONFIRM_REG' });
+        } else {
+          dispatch({ type: 'UNCONFIRM_REG' });
+        }
+
         setApiCourses(available.map(c => ({
           code: c.course_code ?? c.code,
-          courseId: c.course_id ?? c.id,   // needed for enroll API call
+          courseId: c.course_id ?? c.id,
           name: c.course_name ?? c.name,
           ch: c.credit_hour ?? c.credit_hours ?? c.ch ?? 3,
           planSem: c.plan_semester ?? c.planSem ?? '',
@@ -89,7 +99,7 @@ export default function Registration({ setPage }) {
           canEnroll: c.can_enroll ?? true,
           type: c.type ?? 'New',
         })));
-        // enrollmentId map: code → enrollment_id
+        
         const map = {};
         enrolled.forEach(e => { map[e.course_code ?? e.code] = e.enrollment_id ?? e.id; });
         setEnrollments(map);
@@ -100,7 +110,7 @@ export default function Registration({ setPage }) {
 
   const regOpen = isRegOpen();
   const canEdit = regOpen && !regConfirmed;
-  const maxCH = calcMaxCH(gpa);
+  const maxCH = apiMaxCH;
   const totalCH = currentCH;
   const over = totalCH > maxCH;
   const passedCodes = getPassedCodes(history);
@@ -321,13 +331,13 @@ export default function Registration({ setPage }) {
           <div style={{ marginBottom: 16 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#8fadc8', marginBottom: 6 }}>
               <span>Credit Hours</span>
-              <span style={{ fontWeight: 700, color: over ? 'var(--rose)' : 'var(--white)' }}>{totalCH} / {maxCH} CH</span>
+              <span style={{ fontWeight: 700, color: over ? 'var(--rose)' : 'var(--white)' }}>{totalCH} / 19 CH</span>
             </div>
             <div style={{ height: 6, background: 'var(--border2)', borderRadius: 4, overflow: 'hidden' }}>
               <div style={{
                 height: '100%', borderRadius: 4,
                 background: over ? 'var(--rose)' : 'var(--blue)',
-                width: `${Math.min(100, (totalCH / maxCH) * 100)}%`,
+                width: `${Math.min(100, (totalCH / 19) * 100)}%`,
                 transition: 'width .4s',
               }} />
             </div>

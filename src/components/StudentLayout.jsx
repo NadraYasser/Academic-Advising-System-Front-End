@@ -3,19 +3,19 @@ import { useApp } from '../contexts/StudentContext';
 import { useNavigate } from "react-router-dom";
 
 const LOGIN_URL = 'http://localhost:3000';
-const BASE_URL  = 'http://127.0.0.1:8000/api';
+const BASE_URL = 'http://127.0.0.1:8000/api';
 
 
 // export function Header({ setPage, onLogout }) {
 //   const { student} = useApp();
 //     async function doLogout() {
 //   await authAPI.logout();
-      
+
 //       window.location.href = 'http://localhost:3000/';
-    
+
 //   }
-  
-  export function Header({ setPage, onLogout }) {
+
+export function Header({ setPage, onLogout }) {
   const { student } = useApp();
 
   async function handleLogout() {
@@ -76,19 +76,23 @@ const BASE_URL  = 'http://127.0.0.1:8000/api';
 }
 
 const NAV = [
-  { section: 'MAIN', items: [
-    { id: 'dash',    icon: '🏠', label: 'Dashboard'       },
-    { id: 'courses', icon: '📚', label: 'My Courses'      },
-    { id: 'reg',     icon: '📝', label: 'Registration'    },
-  ]},
-  { section: 'ADVISING', items: [
-    { id: 'book',  icon: '📅', label: 'Book Appointment'  },
-    { id: 'appts', icon: '🗓', label: 'My Appointments', badge: true },
-  ]},
+  {
+    section: 'MAIN', items: [
+      { id: 'dash', icon: '🏠', label: 'Dashboard' },
+      { id: 'courses', icon: '📚', label: 'My Courses' },
+      { id: 'reg', icon: '📝', label: 'Registration' },
+    ]
+  },
+  {
+    section: 'ADVISING', items: [
+      { id: 'book', icon: '📅', label: 'Book Appointment' },
+      { id: 'appts', icon: '🗓', label: 'My Appointments', badge: true },
+    ]
+  },
 ];
 
 function avBg(risk) {
-  if (risk === 'high')   return 'linear-gradient(135deg,#be123c,#fb7185)';
+  if (risk === 'high') return 'linear-gradient(135deg,#be123c,#fb7185)';
   if (risk === 'medium') return 'linear-gradient(135deg,#b45309,#f59e0b)';
   return 'linear-gradient(135deg,#1e40af,#3b82f6)';
 }
@@ -110,7 +114,7 @@ export function Sidebar({ page, setPage }) {
           fontFamily: "'DM Mono',monospace", fontSize: 14, fontWeight: 800, color: '#fff',
           background: avBg(risk),
         }}>
-          {student?.av || (student?.name ? student.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase() : '??')}
+          {student?.av || (student?.name ? student.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() : '??')}
         </div>
         <div>
           <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--white)' }}>{student?.name}</div>
@@ -127,14 +131,14 @@ export function Sidebar({ page, setPage }) {
             return (
               <div key={item.id} onClick={() => setPage(item.id)} style={{
                 display: 'flex', alignItems: 'center', gap: 9, padding: '8px 13px',
-                fontSize: '1.2rem', fontWeight: active ? 700 : 500,
+                fontSize: '1.18rem', fontWeight: active ? 700 : 500,
                 cursor: 'pointer', transition: 'all .15s',
                 borderLeft: active ? '2px solid var(--blue2)' : '2px solid transparent',
                 background: active ? 'rgba(59,130,246,.07)' : 'transparent',
                 userSelect: 'none',
               }}
-              onMouseEnter={e => { if (!active) { e.currentTarget.style.color='var(--white)'; e.currentTarget.style.background='rgba(255,255,255,.03)'; }}}
-              onMouseLeave={e => { if (!active) { e.currentTarget.style.color='var(--muted)'; e.currentTarget.style.background='transparent'; }}}
+                onMouseEnter={e => { if (!active) { e.currentTarget.style.color = 'var(--white)'; e.currentTarget.style.background = 'rgba(255,255,255,.03)'; } }}
+                onMouseLeave={e => { if (!active) { e.currentTarget.style.color = 'var(--muted)'; e.currentTarget.style.background = 'transparent'; } }}
               >
                 <span style={{ fontSize: 14, width: 16, textAlign: 'center', flexShrink: 0 }}>{item.icon}</span>
                 {item.label}

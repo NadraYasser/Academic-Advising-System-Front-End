@@ -219,10 +219,8 @@ export function AppProvider({ children }) {
 
       // Map snake_case API fields to camelCase expected by components
       const mappedStudents = rawStudents.map(s => {
-        const rawRisk = (s.risk_level ?? s.riskLevel ?? 'low').toLowerCase();
-        // Normalize "High level" or "High" -> "high"
-        const risk = rawRisk.includes('high') ? 'high' : rawRisk.includes('medium') ? 'medium' : 'low';
         const gpa = s.cumulative_gpa ?? s.gpa ?? 0;
+        const risk = gpa < 2.0 ? 'high' : (gpa >= 2.0 && gpa < 2.76 ? 'medium' : 'low');
 
         return {
           ...s,
@@ -234,6 +232,7 @@ export function AppProvider({ children }) {
           gpa: gpa,
           cumGPA: gpa, // Dashboard expects cumGPA
           currentCH: s.current_hours ?? s.currentCH ?? 0,
+          allowedMaxCH: s.allowed_maxCH ?? s.allowedMaxCH ?? 0,
           av: s.av ?? s.initials ?? (s.name ? s.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() : '??'),
         };
       });
@@ -263,7 +262,7 @@ export function AppProvider({ children }) {
           student: stObj || {
             name: student.name || 'Unknown',
             av: student.initials || '??',
-            riskLevel: (student.risk_level || 'low').toLowerCase().includes('high') ? 'high' : 'low'
+            riskLevel: (student.cumulative_gpa ?? 0) < 2.0 ? 'high' : ((student.cumulative_gpa ?? 0) < 2.76 ? 'medium' : 'low')
           }
         };
       });
@@ -330,6 +329,8 @@ export function AppProvider({ children }) {
       // Also update the selected student with full profile data
       if (profileData?.header) {
         const h = profileData.header;
+        const hGpa = h.cumulative_gpa ?? student.gpa ?? 0;
+        const hRisk = hGpa < 2.0 ? 'high' : (hGpa >= 2.0 && hGpa < 2.76 ? 'medium' : 'low');
         dispatch({
           type: "SET_SELECTED_STUDENT",
           payload: {
@@ -339,8 +340,8 @@ export function AppProvider({ children }) {
             email: h.email ?? student.email,
             level: h.level ?? student.level,
             department: h.department ?? student.department,
-            riskLevel: h.risk_level ?? student.riskLevel,
-            gpa: h.cumulative_gpa ?? student.gpa,
+            riskLevel: hRisk,
+            gpa: hGpa,
             av: h.initials ?? student.av,
             summaryCards: profileData.summary_cards ?? [],
             currentCourses: profileData.current_courses ?? [],

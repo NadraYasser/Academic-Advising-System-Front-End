@@ -149,7 +149,7 @@ export default function MyStudents({ setPage, onViewStudent }) {
 
                       {/* CH THIS SEM */}
                       <td style={{ fontSize: 15, padding: '13px 16px', color: 'var(--white)', fontFamily: "'DM Mono',monospace" }}>
-                        {getCurrentCH(s)} CH
+                        {s.allowedMaxCH} CH
                       </td>
 
                       {/* FAILED */}

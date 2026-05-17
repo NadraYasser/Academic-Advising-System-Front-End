@@ -73,7 +73,8 @@ function reducer(state, action) {
 // ── MAPPERS ──────────────────────────────────────────────
 function mapStudent(s) {
   const latestRisk = s.risk_evaluations?.[s.risk_evaluations.length - 1] ?? {};
-  const rawRisk = latestRisk.risk_level ?? 'low';
+  const gpa = latestRisk.cumulative_gpa ?? null;
+  const riskVal = gpa === null ? 'Low' : (gpa < 2.0 ? 'High' : (gpa < 2.76 ? 'Medium' : 'Low'));
   return {
     id: s.id,
     name: s.name,
@@ -84,8 +85,8 @@ function mapStudent(s) {
     advisor_id: s.advisor_id,
     department: s.department?.name ?? '',
     advisor: s.advisor?.name ?? '',
-    risk: rawRisk.charAt(0).toUpperCase() + rawRisk.slice(1), // 'High', 'Medium', 'Low'
-    gpa: latestRisk.cumulative_gpa ?? null,
+    risk: riskVal,
+    gpa: gpa,
   };
 }
 
