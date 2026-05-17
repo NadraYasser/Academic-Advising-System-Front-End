@@ -214,10 +214,10 @@ export function AppProvider({ children }) {
 
       dispatch({ type: "SET_STUDENT", payload: student });
 
-      // ── Dashboard
+      
       const dashboard = await apiGet("/student/dashboard");
 
-      // Enrich student with data from API response
+      
       if (dashboard) {
         dispatch({
           type: "SET_STUDENT",
@@ -245,7 +245,7 @@ export function AppProvider({ children }) {
         });
       }
 
-      // ── Courses history (separate endpoint)
+      
       try {
         const coursesData = await apiGet("/student/courses");
     
@@ -279,13 +279,10 @@ export function AppProvider({ children }) {
         console.warn("Could not load courses:", e.message);
       }
 
-      // ── Appointments
+      
       await refreshAppts();
 
-      // ── Slots: getAvailableDays returns list of dates, then we need to fetch slots for a specific date
-      // The days endpoint returns array of available dates
-      // We don't load slots at boot - they load on demand in BookAppointment page
-      // Just set empty array here; BookAppointment uses fetchAdvisorSlots directly
+     
       dispatch({
         type: "SET_SLOTS",
         payload: [],
@@ -298,10 +295,9 @@ export function AppProvider({ children }) {
     dispatch({ type: "SET_LOADING", payload: false });
   }, [toast]);
 
-  // ── Refresh Slots (no-op - slots load on demand in BookAppointment page)
+  
   const refreshSlots = useCallback(async () => {
-    // Slots are fetched per-date in BookAppointment page
-    // This is kept for API compatibility
+  
   }, []);
 
   return (
