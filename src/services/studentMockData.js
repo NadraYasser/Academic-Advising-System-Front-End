@@ -2,7 +2,7 @@
 //  MOCK DATA — mirrors server API response shapes
 
 
-// Passwords stored for demo login only 
+
 export const CREDENTIALS = {
   'omar.samir@sci.asu.edu.eg':    { pw: 'student123', id: 's001' },
   'ahmed.hassan@sci.asu.edu.eg':  { pw: 'student123', id: 's002' },
@@ -11,12 +11,11 @@ export const CREDENTIALS = {
   'khaled.atef@sci.asu.edu.eg':   { pw: 'student123', id: 's005' },
 };
 
-//  Student profiles — backend pre-computes stats 
 export const USERS = [
   {
     id:'s001', name:'Omar Samir', email:'omar.samir@sci.asu.edu.eg',
     role:'student', dept:'Mathematics', level:3, advisorId:'a001', av:'OS',
-    // Pre-computed by backend:
+  
     cumGPA: 3.50, chPassed: 28, failedCodes: [], riskLevel: 'low',
   },
   {
