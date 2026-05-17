@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────
-//  Courses Page — Connected to API
+//  Courses Page 
 // ─────────────────────────────────────────────────────────────
 import React from 'react';
 import { useState } from 'react';
