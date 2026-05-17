@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────
-//  Advisors Page — Connected to API
+//  Advisors Page 
 // ─────────────────────────────────────────────────────────────
 import React from 'react';
 import { useState } from 'react';
@@ -33,7 +33,7 @@ function AdvisorModal({ initial = EMPTY, title, confirmLabel, onClose, onConfirm
         level: String(form.level),
         department_id: String(form.department_id),
         max_student: String(form.max_student),
-        // Default password — advisor should reset after first login
+  
         password: form.password || 'Advisor@123',
         password_confirmation: form.password || 'Advisor@123',
       };
