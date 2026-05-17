@@ -1,6 +1,4 @@
-// ═══════════════════════════════════════════════════════════════
-//  ASU Academic Advising — UNIFIED APP
-// ═══════════════════════════════════════════════════════════════
+
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 
@@ -247,7 +245,7 @@ function StudentPortal() {
 function LoginPage() {
   const navigate = useNavigate();
 
-  // لو مسجّل دخول بالفعل → وجّه للـ portal
+  
   useEffect(() => {
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
@@ -255,7 +253,7 @@ function LoginPage() {
   }, []);
 
   function onLoginSuccess(role) {
-    // Normalize role to lowercase to handle API returning "Admin", "Advisor", etc.
+    
     navigate(`/${role.toLowerCase()}`, { replace: true });
   }
 
