@@ -1,7 +1,4 @@
-// ─────────────────────────────────────────────────────────────
-//  Appointments — No Show → Cancelled
-//  Counter: Upcoming / Attended / Cancelled فقط (بدون No Show)
-// ─────────────────────────────────────────────────────────────
+
 import React, { useState } from 'react';
 import { useApp } from '../../contexts/AdvisorContext';
 import { Avatar, Empty } from '../../components/AdvisorUI';
@@ -34,7 +31,7 @@ export default function Appointments({ setPage }) {
   const [filter, setFilter] = useState('');
   const [search, setSearch] = useState('');
 
-  // ── Counters — No Show يُحسب ضمن Cancelled ────────────────
+  
   const upcoming = appts.filter(a => a.status === 'booked').length;
   const attended = appts.filter(a => a.status === 'attended').length;
   const cancelled = appts.filter(a => a.status === 'cancelled' || a.status === 'noshow').length;
@@ -62,7 +59,6 @@ export default function Appointments({ setPage }) {
   const filtered = appts
     .filter(a => {
       if (!filter) return true;
-      // في الـ filter dropdown: cancelled يشمل noshow أيضاً
       if (filter === 'cancelled') return a.status === 'cancelled' || a.status === 'noshow';
       return a.status === filter;
     })
