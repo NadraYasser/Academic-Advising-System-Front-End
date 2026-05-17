@@ -1,8 +1,4 @@
-// ─────────────────────────────────────────────────────────────
-//  Dashboard Page — Dark Theme — مطابق للـ Wireframe
-//  GET /api/admin/dashboard
-//  Response: { overview, risk_distribution, appointments, departments }
-// ─────────────────────────────────────────────────────────────
+
 import React from 'react';
 import { useApp } from '../../contexts/AdminContext';
 import { Loader, Empty } from '../../components/AdminUI';
@@ -18,7 +14,7 @@ function StatCard({ icon, value, label, sub, subColor, borderColor, onClick }) {
       padding: '30px 15px',
       cursor: onClick ? 'pointer' : 'default',
       transition: 'box-shadow .2s',
-      //display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 24, marginBottom: 25  ,fontSize:"13",
+      
       alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8, fontSize: "13",
     }}
       onMouseEnter={e => onClick && (e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,.3)')}
@@ -33,7 +29,7 @@ function StatCard({ icon, value, label, sub, subColor, borderColor, onClick }) {
     </div>
   );
 }
-//<div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 12, marginBottom: 18  ,fontSize:""}}></div>
+
 
 // ── Risk Bar ─────────────────────────────────────────────────
 function RiskBar({ label, count, total }) {
