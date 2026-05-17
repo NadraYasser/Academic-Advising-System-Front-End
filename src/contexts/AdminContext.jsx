@@ -154,7 +154,7 @@ export function AppProvider({ children }) {
     dispatch({ type: 'SET_LOADING', payload: true });
 
     try {
-      // ✅ 1. قراءة admin من localStorage
+      
       const userStr = localStorage.getItem('user');
       const adminUser = userStr ? JSON.parse(userStr) : null;
 
@@ -171,7 +171,7 @@ export function AppProvider({ children }) {
         }
       });
 
-      // ✅ 2. جلب البيانات من API
+
       const [
         statsRaw,
         studentsRaw,
