@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────
-// Advisor Context — API ONLY VERSION
+// Advisor Context
 // ─────────────────────────────────────────────
 
 import React, { createContext, useContext, useReducer, useCallback } from "react";
