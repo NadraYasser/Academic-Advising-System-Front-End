@@ -18,7 +18,7 @@ function fmtDate(d) {
   });
 }
 
-// هل التاريخ سابق لليوم؟
+
 function isPastDate(dateStr) {
   const today = new Date(); today.setHours(0,0,0,0);
   return new Date(dateStr + 'T12:00:00') < today;
