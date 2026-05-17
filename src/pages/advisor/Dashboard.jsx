@@ -1,6 +1,4 @@
-// ─────────────────────────────────────────────────────────────
-//  PAGE: Dashboard — Advisor Portal
-// ─────────────────────────────────────────────────────────────
+
 import React from 'react';
 import { useApp } from '../../contexts/AdvisorContext';
 import { CURRENT_SEM } from '../../services/advisorMockData';
@@ -28,7 +26,7 @@ function TopStatCard({ icon, value, label, sub, subColor, accentColor, onClick }
   );
 }
 
-// Shared "View All" button style used in both columns
+
 function ViewAllBtn({ onClick }) {
   return (
     <button onClick={onClick} style={{
