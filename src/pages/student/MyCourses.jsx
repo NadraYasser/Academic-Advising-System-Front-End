@@ -7,7 +7,6 @@ import { Card, CardHead, CardBody, CardTitle, GPABar, CodeChip, AttBadge, Empty 
 
 const PER_PAGE = 8;
 
-// Grade groups — D and F are separate
 const GRADE_GROUPS = [
   { key: 'A+/A', grades: ['A+', 'A', 'A-'], color: 'var(--green)' },
   { key: 'B+/B', grades: ['B+', 'B', 'B-'], color: 'var(--blue2)' },
@@ -21,7 +20,7 @@ export default function MyCourses() {
   const [semFilter, setSemFilter] = useState('');
   const [page, setPage] = useState(1);
 
-  // Only completed semesters
+  
   const completedSems = getCompletedSems(history);
   const semGroups = {};
   history.forEach(c => { if (!semGroups[c.sem]) semGroups[c.sem] = []; semGroups[c.sem].push(c); });
@@ -32,7 +31,7 @@ export default function MyCourses() {
   const paginated = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
   function handleSemChange(val) { setSemFilter(val); setPage(1); }
 
-  // Grade distribution — grouped
+  
   const gradedCourses = history.filter(c => c.status !== 'enrolled' && c.grade !== '—' && c.grade !== null);
   const total = gradedCourses.length;
 
