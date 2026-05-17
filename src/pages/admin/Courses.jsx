@@ -21,12 +21,10 @@ function CourseModal({ initial = EMPTY, title, confirmLabel, onClose, onConfirm,
     plan_semester: String(initial.plan_semester ?? 1),
     course_name:   initial.course_name ?? initial.name ?? '',
     course_code:   initial.course_code ?? (initial.code ? `${initial.code}${initial.num}` : ''),
-    // dept IDs as comma string for editing
-    //department_ids: initial.departments?.map(d=>d.id).join(',') ?? '',
+  
      department_input: initial.departments?.map(d => d.name).join(', ') || '',
     type_course:    initial.departments?.[0]?.type_course ?? 'mandatory',
-    // بعد:
-//prerequisite_ids: Array.isArray(initial.prerequisite_ids) ? initial.prerequisite_ids.join(',') : '',
+   
 prerequisite_input: initial.something?.map(x => x.name).join(', ') || '',
   });
   const [errors, setErrors] = useState({});
@@ -40,12 +38,10 @@ prerequisite_input: initial.something?.map(x => x.name).join(', ') || '',
     if (Object.keys(e).length) { setErrors(e); return; }
     setSaving(true);
     try {
-      // Parse department IDs from comma string and look up their names
+     
       const deptIds  = form.department_ids.split(',').map(s=>parseInt(s.trim())).filter(n=>!isNaN(n));
       const prereqIds = form.prerequisite_ids.split(',').map(s=>parseInt(s.trim())).filter(n=>!isNaN(n));
 
-      // Backend expects departments.*.department_name (string) + type_course
-      // and prerequisites.*.course_code (string)
       const deptObjs = deptIds.map(id => {
         const dept = departments.find(d => d.id === id || String(d.id) === String(id));
         return { department_name: dept?.name ?? String(id), type_course: form.type_course };
