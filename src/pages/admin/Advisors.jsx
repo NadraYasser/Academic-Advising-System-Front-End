@@ -72,7 +72,6 @@ function AdvisorModal({ initial = EMPTY, title, confirmLabel, onClose, onConfirm
 }
 
 const PER_PAGE = 10;
-
 export default function Advisors() {
   const { advisors, departments, dispatch, toast } = useApp();
   const [search, setSearch] = useState('');
