@@ -1,10 +1,4 @@
-// ─────────────────────────────────────────────────────────────
-//  Registration — UI مطابق للـ screenshot
-//  API:  GET  /api/student/registration
-//        POST /api/student/registration/enroll
-//        POST /api/student/registration/unenroll/{id}
-//        POST /api/student/registration/confirm
-// ─────────────────────────────────────────────────────────────
+
 import React, { useEffect, useState } from 'react';
 import { useApp } from '../../contexts/StudentContext';
 import { COURSES, CURRENT_SEM, REG_PERIOD } from '../../services/studentMockData';
