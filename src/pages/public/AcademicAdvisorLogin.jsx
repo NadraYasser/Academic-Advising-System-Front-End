@@ -177,7 +177,7 @@ function LoginView({ onForgot, onLoginSuccess }) {
         body: JSON.stringify({ email: email.trim(), password: password.trim(), role }),
       });
 
-      // Fallback to generic endpoint if role-specific returns 404
+      
       if (res.status === 404 && endpoint !== GENERIC_LOGIN_ENDPOINT) {
         res = await fetch(GENERIC_LOGIN_ENDPOINT, {
           method: "POST",
@@ -191,28 +191,25 @@ function LoginView({ onForgot, onLoginSuccess }) {
         setErr(data.message || "Invalid email or password");
         setLoading(false);
         return;
-      }
 
-      // حفظ الـ token والـ user
       const token = data.token ?? data.access_token ?? data.data?.token;
       if (token) {
-        // استخراج بيانات الـ user من الـ response
+       
         const userFromAPI = data.user ?? data.data?.user ?? data.advisor ?? data.student ?? data.admin ?? null;
 
-        // بناء user object كامل
-        const userObj = {
+       const userObj = {
           id: userFromAPI?.id ?? data.id ?? null,
           name: userFromAPI?.name ?? data.name ?? email.split('@')[0],
           email: userFromAPI?.email ?? data.email ?? email,
           role: userFromAPI?.role ?? role,
-          // advisor specific
+         
           dept: userFromAPI?.department ?? userFromAPI?.dept ?? null,
           advisorId: userFromAPI?.id ?? null,
-          // avatar initials
+         
           av: (userFromAPI?.name ?? email).split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase(),
         };
 
-        // Normalize role to lowercase to match route paths (/admin, /advisor, /student)
+        /
         const effectiveRole = (userFromAPI?.role ?? data.role ?? role).toLowerCase();
 
         localStorage.setItem("token", token);
