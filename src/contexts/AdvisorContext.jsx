@@ -131,7 +131,7 @@ async function apiGet(path) {
 
   if (res.status === 401) {
     localStorage.clear();
-    /* navigation handled by App */
+    /* navigation handled by App *
     throw new Error("Unauthorized");
   }
 
@@ -214,10 +214,10 @@ export function AppProvider({ children }) {
       dispatch({ type: "SET_ADVISOR", payload: advisor });
 
       const studentsRes = await apiGet("/advisor/mystudents");
-      // Response shape: { total, need_attention, students: [...] }
+
       const rawStudents = studentsRes?.students ?? studentsRes?.data ?? (Array.isArray(studentsRes) ? studentsRes : []);
 
-      // Map snake_case API fields to camelCase expected by components
+ 
       const mappedStudents = rawStudents.map(s => {
         const gpa = s.cumulative_gpa ?? s.gpa ?? 0;
         const risk = gpa < 2.0 ? 'high' : (gpa >= 2.0 && gpa < 2.76 ? 'medium' : 'low');
@@ -245,7 +245,7 @@ export function AppProvider({ children }) {
       const apptsRes = await apiGet("/advisor/appointments");
       const rawAppts = Array.isArray(apptsRes) ? apptsRes : (apptsRes?.data ?? []);
 
-      // Map API response to expected frontend shape
+     
       const mappedAppts = rawAppts.map(a => {
         const student = a.student || {};
         const stObj = mappedStudents.find(s => s.id === (student.id ?? a.student_id));
@@ -256,9 +256,9 @@ export function AppProvider({ children }) {
           date: a.date,
           time: a.time,
           notes: a.notes ?? '',
-          // Normalize status to lowercase
+      
           status: (a.status ?? '').toLowerCase(),
-          // Ensure student info is available for avatars etc
+       
           student: stObj || {
             name: student.name || 'Unknown',
             av: student.initials || '??',
@@ -301,10 +301,10 @@ export function AppProvider({ children }) {
     dispatch({ type: "SET_STUDENT_LOADING", payload: true });
 
     try {
-      // The student profile endpoint returns full data including history
+     
       const profileData = await apiGet(`/advisor/students/${student.id}`);
 
-      // Map academic_history to the expected format
+
       const history = (profileData?.academic_history ?? []).map(c => ({
         code: c.course_code ?? c.code,
         name: c.course_name ?? c.name ?? '',
@@ -320,13 +320,13 @@ export function AppProvider({ children }) {
         payload: history,
       });
 
-      // student_notes come from profile endpoint
+     
       dispatch({
         type: "SET_STUDENT_NOTES",
         payload: profileData?.student_notes ?? [],
       });
 
-      // Also update the selected student with full profile data
+      
       if (profileData?.header) {
         const h = profileData.header;
         const hGpa = h.cumulative_gpa ?? student.gpa ?? 0;
@@ -359,7 +359,7 @@ export function AppProvider({ children }) {
 
   // ── Appointment actions ───────────
   const updateApptStatus = useCallback(async (id, status) => {
-    // status should be 'Attended' or 'Cancelled' (matching backend validation)
+   
     await apiPatch(`/advisor/appointments/update_status/${id}`, { status });
     if (status === 'Attended') dispatch({ type: 'MARK_ATTENDED', id });
     else dispatch({ type: 'MARK_CANCELLED', id });
