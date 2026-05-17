@@ -10,7 +10,6 @@ export const USE_MOCK = false;
 function mock(data, delay = 250) {
   return new Promise(resolve => setTimeout(() => resolve(structuredClone(data)), delay));
 }
-
 function authHeaders() {
   const token = localStorage.getItem('token');
   return {
