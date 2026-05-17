@@ -14,7 +14,6 @@ import {
 function getDay(d) { return new Date(d + 'T12:00:00').getDate(); }
 function getMon(d) { return new Date(d + 'T12:00:00').toLocaleDateString('en-US', { month: 'short' }).toUpperCase(); }
 
-// Sub-text style — visible but not too bright
 const sub = { color: '#8fadc8', fontSize: 11, marginTop: 3 };
 
 export default function Dashboard({ setPage }) {
