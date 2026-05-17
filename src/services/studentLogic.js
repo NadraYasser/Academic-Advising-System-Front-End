@@ -69,17 +69,17 @@ export function maxCHforGPA(gpa) {
 }
 
 export function prereqsMet(code, passedCodes, allCourses = COURSES) {
-  if (!allCourses) return true; // Default to true if no courses list at all
+  if (!allCourses) return true; 
 
   const course = allCourses.find(c => c.code === code);
-  if (!course) return true; // If course not found in catalog, assume no prereqs
+  if (!course) return true; 
 
   const prereqs = course.prereqs || [];
 
   return prereqs.every(p => passedCodes.has(p));
 }
 
-// Registration period helpers 
+ 
 const REG_PERIOD = {
   open: new Date("2026-05-01"),
   close: new Date("2026-06-01"),
@@ -94,31 +94,10 @@ export function regDaysLeft() {
   return Math.max(0, Math.ceil(ms / (1000 * 60 * 60 * 24)));
 }
 
-// Available courses for this semester 
-// Returns courses eligible for display in Available to Enroll.
-// Includes courses where prereqs are NOT met — those are shown
-// with a disabled Enroll button in the UI.
-// Filtering rules (for which courses appear):
-//  1. Not already passed
-//  2. Not currently enrolled
-//  3. planSem parity matches season (spring→even, fall→odd)
-//     OR is student's current/next plan semester
-//     OR is a failed course eligible for retake
-// Prereq check is done in the UI per row (disabled button).
-
-// export function getAvailableCourses(history, currentSem, allCourses = COURSES) {
-// const passedCodes   = getPassedCodes(history);
-// const enrolledCodes = new Set(getCurrentCourses(history).map(c => c.code));
-
-// const isSpring      = currentSem.type === 'spring';
-// const targetParity  = isSpring ? 0 : 1;
-
-// return allCourses.filter(course => {
-//   // logic بتاعك هنا
-// });
+/
 export function getAvailableCourses(history, currentSem, allCourses) {
-  if (!allCourses) return []; // حماية
-
+  if (!allCourses) return []; 
+  
   const passedCodes = getPassedCodes(history);
   const enrolledCodes = new Set(
     getCurrentCourses(history).map(c => c.code)
@@ -129,18 +108,14 @@ export function getAvailableCourses(history, currentSem, allCourses) {
 
   return allCourses.filter(course => {
 
-    // ❌ متخدش مادة ناجح فيها قبل كده
-    if (passedCodes.has(course.code)) return false;
+     if (passedCodes.has(course.code)) return false;
 
-    // ❌ متخدش مادة already enrolled
-    if (enrolledCodes.has(course.code)) return false;
+     if (enrolledCodes.has(course.code)) return false;
 
-    // ✅ تحقق من الـ prerequisites
     const prereqs = course.prereqs || [];
     const prereqsOk = prereqs.every(p => passedCodes.has(p));
     if (!prereqsOk) return false;
 
-    // ✅ مثال parity (لو عندك نظام odd/even semesters)
     if (course.semParity !== undefined) {
       if (course.semParity !== targetParity) return false;
     }
@@ -161,7 +136,7 @@ export function getAvailableCourses(history, currentSem, allCourses) {
     if (passedCodes.has(c.code)) return false;
     if (enrolledCodes.has(c.code)) return false;
 
-    // Failed course → show for retake regardless of parity
+
     const everFailed = history.some(h => h.code === c.code && h.status === 'failed');
     if (everFailed) return true;
 
@@ -173,7 +148,6 @@ export function getAvailableCourses(history, currentSem, allCourses) {
   });
 }
 
-// Study plan: only semesters student has history in + next
 export function getVisiblePlanSemesters(history, allCourses = COURSES) {
   const activeSems = new Set();
   history.forEach(h => {
@@ -185,7 +159,7 @@ export function getVisiblePlanSemesters(history, allCourses = COURSES) {
   return Math.min(maxActive + 1, maxCatalog);
 }
 
-//  Conflict check for booking 
+
 export function hasConflict(slotId, sid, slots, appts) {
   const slot = slots.find(s => s.id === slotId);
   if (!slot) return false;
@@ -196,7 +170,7 @@ export function hasConflict(slotId, sid, slots, appts) {
   });
 }
 
-//  Display helpers 
+
 export function gradeClass(g) {
   if (!g || g === '—') return '';
   if (g.startsWith('A')) return 'gr-a';
