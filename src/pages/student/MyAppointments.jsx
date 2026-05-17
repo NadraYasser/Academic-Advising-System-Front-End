@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useApp } from '../../contexts/StudentContext';
 import { Card, CardHead, CardBody, CardTitle, StatCard, Btn, Empty } from '../../components/StudentUI';
 import { cancelAppointment } from '../../services/studentAPI';
-//import { USERS, HISTORY, GPA_HIST, SLOTS, APPTS, COURSES } from '../mockData';
+
 
 function getDay(d) { return new Date(d + 'T12:00:00').getDate(); }
 function getMon(d) { return new Date(d + 'T12:00:00').toLocaleDateString('en-US', { month: 'short' }).toUpperCase(); }
