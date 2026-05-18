@@ -55,13 +55,16 @@ Users can login using:
 
 #### Student
 ```text
-Email: tarek.nasser.1174@sci.asu.edu.eg
+Email: wael.mahmoud.1802@sci.asu.edu.eg
 Password: 12345678
+,,
+Email:heba.nasser.1618@sci.asu.edu.eg
+password:12345678
 ```
 
 #### Advisor
 ```text
-Email: hana.samir.@sci.asu.edu.eg
+Email:mohamed.elsayed@university.edu.eg
 Password: 12345678
 ```
 
